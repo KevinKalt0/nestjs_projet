@@ -1,32 +1,27 @@
 import { Injectable } from '@nestjs/common';
+import { InjectRepository } from '@nestjs/typeorm';
+import { Repository } from 'typeorm';
+import { User } from './user.entity';
 
 @Injectable()
 export class UserService {
-  private users: { email: string }[] = [];
+    constructor(
+        @InjectRepository(User)
+        private readonly userRepository: Repository<User>,
+    ) {}
 
-  async addUser(email: string) {
-    if (!this.isValidEmail(email)) {
-      throw new Error('Invalid email format');
+    async addUser(email: string): Promise<User> {
+        const user = this.userRepository.create({ email });
+        return this.userRepository.save(user);
     }
 
-    const existingUser = this.users.find(user => user.email === email);
-    if (existingUser) {
-      throw new Error('User already exists');
+    async getUser(email: string): Promise<User> {
+        return this.userRepository.findOne({ where: { email } });
     }
 
-    this.users.push({ email });
-  }
-
-  async getUser(email: string) {
-    return this.users.find(user => user.email === email);
-  }
-
-  async resetData() {
-    this.users = [];
-  }
-
-  private isValidEmail(email: string) {
-    // Simple email validation, you may use a more comprehensive method
-    return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
-  }
+    async resetData(): Promise<void> {
+        await this.userRepository.clear();
+    }
 }
+
+

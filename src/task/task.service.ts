@@ -1,26 +1,32 @@
 import { Injectable } from '@nestjs/common';
+import { InjectRepository } from '@nestjs/typeorm';
+import { Repository } from 'typeorm';
+import { Task } from './task.entity';
+import { CreateTaskDto } from '../dto/create-task.dto';
 
 @Injectable()
 export class TaskService {
-  private tasks: { name: string; userId: string; priority: number }[] = [];
+    constructor(
+        @InjectRepository(Task)
+        private readonly taskRepository: Repository<Task>,
+    ) {}
 
-  async addTask(name: string, userId: string, priority: number) {
-    if (!name || !userId || priority === undefined || priority === null || priority <= 0) {
-      throw new Error('Invalid task data');
+    async addTask(name: string, userId: number, priority: number): Promise<Task> {
+        const task = this.taskRepository.create({ name, user: { id: userId }, priority });
+        return this.taskRepository.save(task);
     }
 
-    this.tasks.push({ name, userId, priority });
-  }
+    async getUserTasks(userId: number): Promise<Task[]> {
+        return this.taskRepository.find({ where: { user: { id: userId } } });
+    }
 
-  async getTaskByName(name: string) {
-    return this.tasks.find(task => task.name === name);
-  }
+    async resetData(): Promise<void> {
+        await this.taskRepository.clear();
+    }
 
-  async resetData() {
-    this.tasks = [];
-  }
-
-  async getUserTasks(userId: string) {
-    return this.tasks.filter(task => task.userId === userId);
-  }
+    async getTaskByName(name: string): Promise<Task> {
+        return this.taskRepository.findOne({ where: { name } });
+    }
 }
+
+

@@ -1,21 +1,30 @@
-import { Controller, Post, Body, HttpStatus, BadRequestException, ConflictException } from '@nestjs/common';
+import { Controller, Post, Body, BadRequestException, ConflictException } from '@nestjs/common';
 import { UserService } from './user.service';
+import { CreateUserDto } from '../dto/create-user.dto';
 
 @Controller('user')
 export class UserController {
-  constructor(private readonly userService: UserService) {}
+    constructor(private readonly userService: UserService) {}
 
-  @Post()
-  async createUser(@Body() payload: { email: string }) {
-    try {
-      await this.userService.addUser(payload.email);
-      return { message: 'User created successfully' };
-    } catch (error) {
-      if (error instanceof BadRequestException || error instanceof ConflictException) {
-        throw error;
-      } else {
-        throw new BadRequestException('Invalid user data');
-      }
+    @Post()
+    async createUser(@Body() createUserDto: CreateUserDto) {
+        const { email } = createUserDto;
+
+        if (!this.isValidEmail(email)) {
+            throw new BadRequestException('Invalid email');
+        }
+
+        const existingUser = await this.userService.getUser(email);
+        if (existingUser) {
+            throw new ConflictException('User already exists');
+        }
+
+        const user = await this.userService.addUser(email);
+        return user;
     }
-  }
+
+    private isValidEmail(email: string): boolean {
+        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        return emailRegex.test(email);
+    }
 }
