@@ -9,7 +9,7 @@ import { Task } from './task/task.entity';
     imports: [
         TypeOrmModule.forRoot({
             type: 'sqlite',
-            database: 'test_nestjs-final-test-db_TASKS',
+            database: 'test_nestjs-final-test-db',
             entities: [User, Task],
             synchronize: true,
         }),

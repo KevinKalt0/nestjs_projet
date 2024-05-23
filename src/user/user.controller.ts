@@ -1,4 +1,4 @@
-import { Controller, Post, Body, BadRequestException, ConflictException } from '@nestjs/common';
+import { Controller, Post, Body, BadRequestException, ConflictException, Get, Param } from '@nestjs/common';
 import { UserService } from './user.service';
 import { CreateUserDto } from '../dto/create-user.dto';
 
@@ -20,6 +20,15 @@ export class UserController {
         }
 
         const user = await this.userService.addUser(email);
+        return user;
+    }
+
+    @Get(':email')
+    async getUser(@Param('email') email: string) {
+        const user = await this.userService.getUser(email);
+        if (!user) {
+            throw new BadRequestException('User not found');
+        }
         return user;
     }
 

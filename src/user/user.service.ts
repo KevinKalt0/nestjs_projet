@@ -16,12 +16,13 @@ export class UserService {
     }
 
     async getUser(email: string): Promise<User> {
-        return this.userRepository.findOne({ where: { email } });
+        return this.userRepository.findOne({
+            where: { email },
+            relations: ['tasks'],
+        });
     }
 
     async resetData(): Promise<void> {
         await this.userRepository.clear();
     }
 }
-
-
