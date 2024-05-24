@@ -1,31 +1,38 @@
 import { Injectable } from '@nestjs/common';
-import { InjectRepository } from '@nestjs/typeorm';
-import { Repository } from 'typeorm';
-import { Task } from './task.entity';
-import { CreateTaskDto } from '../dto/create-task.dto';
+import { CreateTaskDto } from './dto/create-task.dto';
 
 @Injectable()
 export class TaskService {
-    constructor(
-        @InjectRepository(Task)
-        private readonly taskRepository: Repository<Task>,
-    ) {}
+    private tasks: any[] = []; // We will use an array to store tasks temporarily
 
-    async addTask(name: string, userId: number, priority: number): Promise<Task> {
-        const task = this.taskRepository.create({ name, user: { id: userId }, priority });
-        return this.taskRepository.save(task);
+    async resetData() {
+        // Implement logic to reset task data, if needed
+    }
+    async getTasksByUserId(userId: number): Promise<any[]> {
+        return this.tasks.filter(task => task.userId === userId);
+    }
+    
+    async createTask(createTaskDto: CreateTaskDto): Promise<any> {
+        const newTask = { ...createTaskDto, id: this.tasks.length + 1 }; // Example: Generate ID
+        this.tasks.push(newTask);
+        return newTask;
     }
 
-    async getUserTasks(userId: number): Promise<Task[]> {
-        return this.taskRepository.find({ where: { user: { id: userId } } });
+    async addTask(name: string, userId: string, priority: number) {
+        // Implement logic to add a task
+        const newTask = { name, userId, priority, id: Math.random().toString() }; // Temporary ID generation
+        this.tasks.push(newTask);
+        return newTask;
     }
 
-    async resetData(): Promise<void> {
-        await this.taskRepository.clear();
+    async getTaskByName(name: string) {
+        // Implement logic to get a task by name
+        return this.tasks.find(task => task.name === name);
     }
 
-    async getTaskByName(name: string): Promise<Task> {
-        return this.taskRepository.findOne({ where: { name } });
+    async getUserTasks(userId: string) {
+        // Implement logic to get tasks for a user
+        return this.tasks.filter(task => task.userId === userId);
     }
 }
 

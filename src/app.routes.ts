@@ -4,7 +4,7 @@ import { TaskModule } from './task/task.module';
 
 export const routes: Routes = [
     {
-        path: 'user',
+        path: '',
         module: UserModule,
     },
     {

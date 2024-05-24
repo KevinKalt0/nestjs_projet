@@ -1,43 +1,24 @@
-import { Controller, Get, Post, Param, Body, BadRequestException } from '@nestjs/common';
-import { TaskService } from '../task/task.service';
-import { UserService } from '../user/user.service';
-import { CreateTaskDto } from '../dto/create-task.dto';
+import { Controller, Get, Param, HttpStatus, HttpException, Body, Post } from '@nestjs/common';
+import { TaskService } from './task.service';
+import { CreateTaskDto } from './dto/create-task.dto';
 
 @Controller('task')
 export class TaskController {
-    constructor(
-        private readonly taskService: TaskService,
-        private readonly userService: UserService,
-    ) {}
+    constructor(private readonly taskService: TaskService) {}
 
-    @Get('user/:userId')
-    async getUserTasks(@Param('userId') userId: string) {
-        if (!this.isValidUserId(userId)) {
-            throw new BadRequestException('Invalid userId');
+    @Get('/user/:userId')
+    async getTasksByUserId(@Param('userId') userId: string) {
+        if (!userId || isNaN(+userId)) {
+            throw new HttpException('Invalid user ID', HttpStatus.BAD_REQUEST);
         }
 
-        const tasks = await this.taskService.getUserTasks(Number(userId));
-        return tasks;
+        const tasks = await this.taskService.getTasksByUserId(+userId);
+        return { tasks }; // Return the tasks with a proper HTTP status code
     }
 
     @Post()
     async createTask(@Body() createTaskDto: CreateTaskDto) {
-        const { name, userId, priority } = createTaskDto;
-
-        if (!name || !this.isValidUserId(userId) || !this.isValidPriority(priority)) {
-            throw new BadRequestException('Invalid task data');
-        }
-
-        const task = await this.taskService.addTask(name, Number(userId), Number(priority));
-        return task;
-    }
-
-    private isValidUserId(userId: string): boolean {
-        return /^\d+$/.test(userId);
-    }
-
-    private isValidPriority(priority: any): boolean {
-        const num = Number(priority);
-        return Number.isInteger(num) && num > 0;
+        const task = await this.taskService.createTask(createTaskDto);
+        return { task }; // Return the created task with a proper HTTP status code
     }
 }
