@@ -1,28 +1,72 @@
-# Installation du projet
+# Projet NestJS Final
 
-**_TodoList en typescript avec NestJS_**
+Ce projet est une application NestJS pour la gestion des utilisateurs et des tâches.
 
-- Ouvrez votre terminal (cmd) :
+## Table des Matières
 
-- Sur Windows,utilisez le raccourci Win + R, puis tapez 'cmd' et appuyez sur Entrée.
-- Accédez au répertoire où vous souhaitez cloner le projet :
-    - Utilisez la commande cd (change directory) pour naviguer vers le répertoire souhaité. Par exemple :
+1. [Introduction](#introduction)
+2. [Installation](#installation)
+3. [Utilisation](#utilisation)
+4. [Contribuer](#contribuer)
+5. [Licence](#licence)
 
-    - bash
-    - Copy code
-    - cd chemin/vers/le/répertoire
+## Introduction
 
-## Clonez le projet Git :
-- Utilisez la commande git clone suivie de l'URL du dépôt Git.
-    - bash
-    - Copy code
-    - git clone https://github.com/KevinKalt0/projet_Nest.git
+Le projet NestJS Final est une application développée avec NestJS, un framework TypeScript pour construire des applications web efficaces et évolutives en Node.js. L'application gère les utilisateurs et leurs tâches associées.
 
-_Cela va cloner le projet Git dans le répertoire actuel._
+## Installation
 
-Une fois le projet cloné, vous pouvez accéder au répertoire du projet en utilisant la commande cd :
+### Prérequis
 
-- bash 
-- Copy code
-- cd chemin/vers/le/répertoire
-- Maintenant, vous êtes dans le répertoire du projet sur votre terminal (cmd) et vous pouvez commencer à travailler sur le projet.
+- Node.js
+- npm (Node Package Manager)
+- Base de données PostgreSQL
+
+### Étapes d'installation
+
+1. Cloner le dépôt depuis GitHub :
+
+git clone https://github.com/votre-utilisateur/nestjs-final.git
+
+markdown
+Copier le code
+
+2. Installer les dépendances Node.js :
+
+cd nestjs-final
+npm install
+
+markdown
+Copier le code
+
+3. Configurer la base de données PostgreSQL en éditant le fichier `config/database.config.ts`.
+
+4. Lancer l'application :
+
+npm start
+
+markdown
+Copier le code
+
+## Utilisation
+
+Une fois l'application lancée, vous pouvez accéder à l'interface utilisateur via votre navigateur web à l'adresse `http://localhost:3000`.
+
+### Fonctionnalités
+
+- **Gestion des Utilisateurs** : Création, lecture, mise à jour et suppression des utilisateurs.
+- **Gestion des Tâches** : Création, lecture, mise à jour et suppression des tâches associées aux utilisateurs.
+
+## Contribuer
+
+Les contributions au projet sont les bienvenues ! Pour contribuer, suivez ces étapes :
+
+1. Forker le projet
+2. Créer une branche pour votre fonctionnalité (`git checkout -b fonctionnalité/ma-fonctionnalite`)
+3. Commiter vos modifications (`git commit -m 'Ajout de la nouvelle fonctionnalité'`)
+4. Pousser la branche vers votre fork (`git push origin fonctionnalité/ma-fonctionnalite`)
+5. Créer une Pull Request
+
+## Licence
+
+Ce projet est sous licence MIT. Voir le fichier [LICENSE](LICENSE) pour plus de détails.
