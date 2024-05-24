@@ -17,7 +17,7 @@ export class TaskController {
 
     @Get('/user/:userId')
     async getTasksByUserId(@Param('userId') userId: string) {
-        if (!userId || isNaN(+userId)) {
+        if (!this.isValidUserId(userId)) {
             throw new HttpException('Invalid user ID', HttpStatus.BAD_REQUEST);
         }
 
@@ -37,11 +37,7 @@ export class TaskController {
             throw new BadRequestException('Invalid task data');
         }
 
-        const task = await this.taskService.addTask(
-            name,
-            String(userId),
-            Number(priority),
-        );
+        const task = await this.taskService.addTask(name, userId, priority);
         return task;
     }
 

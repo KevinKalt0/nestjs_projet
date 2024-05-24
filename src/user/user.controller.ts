@@ -4,7 +4,7 @@ import { CreateUserDto } from './dto/create-user.dto';
 
 @Controller('user')
 export class UserController {
-    constructor(private readonly userService: UserService) {}
+    constructor(private readonly userService: UserService) { }
 
     @Post()
     @HttpCode(HttpStatus.CREATED)
@@ -17,12 +17,11 @@ export class UserController {
                 throw new BadRequestException('L\'email fourni n\'est pas valide');
             }
 
-         
             const existingUser = await this.userService.getUser(createUserDto.email);
             if (existingUser) {
                 throw new ConflictException('L\'utilisateur existe déjà');
             }
-            
+
             const newUser = await this.userService.addUser(createUserDto.email);
             return newUser;
         } catch (error) {
