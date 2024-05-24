@@ -1,10 +1,19 @@
-import { Controller, Get, Param, HttpStatus, HttpException, Body, Post } from '@nestjs/common';
-import { TaskService } from './task.service';
+import {
+    Controller,
+    Get,
+    Post,
+    Param,
+    Body,
+    BadRequestException,
+    HttpException,
+    HttpStatus,
+} from '@nestjs/common';
+import { TaskService } from '../task/task.service';
 import { CreateTaskDto } from './dto/create-task.dto';
 
 @Controller('task')
 export class TaskController {
-    constructor(private readonly taskService: TaskService) {}
+    constructor(private readonly taskService: TaskService) { }
 
     @Get('/user/:userId')
     async getTasksByUserId(@Param('userId') userId: string) {
@@ -18,7 +27,30 @@ export class TaskController {
 
     @Post()
     async createTask(@Body() createTaskDto: CreateTaskDto) {
-        const task = await this.taskService.createTask(createTaskDto);
-        return { task }; // Return the created task with a proper HTTP status code
+        const { name, userId, priority } = createTaskDto;
+
+        if (
+            !name ||
+            !this.isValidUserId(userId) ||
+            !this.isValidPriority(priority)
+        ) {
+            throw new BadRequestException('Invalid task data');
+        }
+
+        const task = await this.taskService.addTask(
+            name,
+            String(userId),
+            Number(priority),
+        );
+        return task;
+    }
+
+    private isValidUserId(userId: string): boolean {
+        return /^\d+$/.test(userId);
+    }
+
+    private isValidPriority(priority: any): boolean {
+        const num = Number(priority);
+        return Number.isInteger(num) && num > 0;
     }
 }

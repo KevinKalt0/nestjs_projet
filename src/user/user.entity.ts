@@ -7,8 +7,8 @@ export class User {
     id: number;
 
     @Column()
-    email: string
+    email: string;
 
-    @OneToMany(() => Task, task => task.user)
+    @OneToMany(() => Task, (task) => task.user)
     tasks: Task[];
 }
