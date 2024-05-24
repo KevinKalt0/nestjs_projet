@@ -13,7 +13,7 @@ import { CreateTaskDto } from './dto/create-task.dto';
 
 @Controller('task')
 export class TaskController {
-    constructor(private readonly taskService: TaskService) { }
+    constructor(private readonly taskService: TaskService) {}
 
     @Get('/user/:userId')
     async getTasksByUserId(@Param('userId') userId: string) {
@@ -22,7 +22,7 @@ export class TaskController {
         }
 
         const tasks = await this.taskService.getTasksByUserId(+userId);
-        return { tasks }; // Return the tasks with a proper HTTP status code
+        return { tasks };
     }
 
     @Post()
@@ -45,8 +45,7 @@ export class TaskController {
         return /^\d+$/.test(userId);
     }
 
-    private isValidPriority(priority: any): boolean {
-        const num = Number(priority);
-        return Number.isInteger(num) && num > 0;
+    private isValidPriority(priority: number): boolean {
+        return Number.isInteger(priority) && priority > 0;
     }
 }
