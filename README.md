@@ -1,18 +1,8 @@
-# Projet NestJS Final
+# Projet NestJS 
+Réalisé par **_Dylan LERAY & Kevin KALTENIS_**
 
-Ce projet est une application NestJS pour la gestion des utilisateurs et des tâches.
-
-## Table des Matières
-
-1. [Introduction](#introduction)
-2. [Installation](#installation)
-3. [Utilisation](#utilisation)
-4. [Contribuer](#contribuer)
-5. [Licence](#licence)
-
-## Introduction
-
-Le projet NestJS Final est une application développée avec NestJS, un framework TypeScript pour construire des applications web efficaces et évolutives en Node.js. L'application gère les utilisateurs et leurs tâches associées.
+ToDoList en typescript avec le framework NestJS. 
+Base de données PostgreSQL avec l'outil TypeORM.
 
 ## Installation
 
@@ -25,41 +15,20 @@ Le projet NestJS Final est une application développée avec NestJS, un framewor
 
 ### Étapes d'installation
 
-1. Cloner le dépôt depuis GitHub :
+- Cloner le dépôt depuis GitHub :
 
-git clone https://github.com/KevinKalt0/nestjs-final.git
+  - `git clone https://github.com/KevinKalt0/nestjs-final.git`
 
-markdown
-Copier le code
+- Installer les dépendances :
 
-2. Installer les dépendances Node.js :
+  - `npm ci`
 
-cd nestjs-final
+- Lancer Docker Desktop
+- Lancer le serveur
+  - `npm run start:postgres`
 
-npm ci
 
-markdown
-Copier le code
+- Lancer les tests e2e
 
-3. Configurer la base de données PostgreSQL en éditant le fichier `config/database.config.ts`.
-
-4. Lancer l'application :
-
-npm start
-
-markdown
-Copier le code
-
-5. Lancer les tests
-
-npm run test:e2e:postgres
-
-## Utilisation
-
-Une fois l'application lancée, vous pouvez accéder à l'interface utilisateur via votre navigateur web à l'adresse `http://localhost:3000`.
-
-### Fonctionnalités
-
-- **Gestion des Utilisateurs** : Création, lecture, mise à jour et suppression des utilisateurs.
-- **Gestion des Tâches** : Création, lecture, mise à jour et suppression des tâches associées aux utilisateurs.
+  - `npm run test:e2e:postgres`
 
