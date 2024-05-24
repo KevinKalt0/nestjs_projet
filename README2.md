@@ -26,7 +26,7 @@ Le projet NestJS Final est une application développée avec NestJS, un framewor
 
 1. Cloner le dépôt depuis GitHub :
 
-git clone https://github.com/votre-utilisateur/nestjs-final.git
+git clone https://github.com/KevinKalt0/nestjs-final.git
 
 markdown
 Copier le code
@@ -34,6 +34,7 @@ Copier le code
 2. Installer les dépendances Node.js :
 
 cd nestjs-final
+
 npm ci
 
 markdown
@@ -48,6 +49,10 @@ npm start
 markdown
 Copier le code
 
+5. Lancer les tests
+
+npm run test:e2e:postgres
+
 ## Utilisation
 
 Une fois l'application lancée, vous pouvez accéder à l'interface utilisateur via votre navigateur web à l'adresse `http://localhost:3000`.
@@ -57,16 +62,3 @@ Une fois l'application lancée, vous pouvez accéder à l'interface utilisateur 
 - **Gestion des Utilisateurs** : Création, lecture, mise à jour et suppression des utilisateurs.
 - **Gestion des Tâches** : Création, lecture, mise à jour et suppression des tâches associées aux utilisateurs.
 
-## Contribuer
-
-Les contributions au projet sont les bienvenues ! Pour contribuer, suivez ces étapes :
-
-1. Forker le projet
-2. Créer une branche pour votre fonctionnalité (`git checkout -b fonctionnalité/ma-fonctionnalite`)
-3. Commiter vos modifications (`git commit -m 'Ajout de la nouvelle fonctionnalité'`)
-4. Pousser la branche vers votre fork (`git push origin fonctionnalité/ma-fonctionnalite`)
-5. Créer une Pull Request
-
-## Licence
-
-Ce projet est sous licence MIT. Voir le fichier [LICENSE](LICENSE) pour plus de détails.
