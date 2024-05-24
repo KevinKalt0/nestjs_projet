@@ -20,7 +20,8 @@ Le projet NestJS Final est une application développée avec NestJS, un framewor
 
 - Node.js
 - npm (Node Package Manager)
-- Base de données PostgreSQL
+- Docker Desktop
+- Git
 
 ### Étapes d'installation
 
