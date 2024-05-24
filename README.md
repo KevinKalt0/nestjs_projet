@@ -6,14 +6,13 @@ Base de données PostgreSQL avec l'outil TypeORM.
 
 ## Installation
 
-### Prérequis
+### Prérequis 🚨
 
-- Node.js
-- npm (Node Package Manager)
-- Docker Desktop
-- Git
+- [Node.js & npm](https://docs.npmjs.com/downloading-and-installing-node-js-and-npm)
+- [Docker Desktop](https://www.docker.com/products/docker-desktop/)
+- [Git](https://git-scm.com/downloads)
 
-### Étapes d'installation
+### Étapes d'installation 🚧
 
 - Cloner le dépôt depuis GitHub :
 
@@ -24,11 +23,11 @@ Base de données PostgreSQL avec l'outil TypeORM.
   - `npm ci`
 
 - Lancer Docker Desktop
-- Lancer le serveur
+- Lancer le serveur 🚀
   - `npm run start:postgres`
 
 
-- Lancer les tests e2e
+- Lancer les tests e2e 🧪
 
   - `npm run test:e2e:postgres`
 
