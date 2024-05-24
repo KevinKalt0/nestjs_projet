@@ -34,7 +34,7 @@ Copier le code
 2. Installer les dépendances Node.js :
 
 cd nestjs-final
-npm install
+npm ci
 
 markdown
 Copier le code
